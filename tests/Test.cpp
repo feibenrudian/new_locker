@@ -379,3 +379,19 @@ TEST_F(
   EXPECT_EQ(OPERATE_RESULT_SUCCESS, ret.operate_result);
   EXPECT_EQ(666, ret.bag.id);
 }
+
+TEST_F(
+    locker_robot_manage_test,
+    SHOULD_get_illegal_ticket_error_GIVEN_a_super_robot_manager_save_a_small_bag_and_a_illagal_ticket_when_get_bag_from_locker_robot_manage) {
+
+  Bag bag(666, SIZE_TYPE_SMALL);
+  (void)locker_robot_manager->SaveBag(bag);
+
+  Ticket ticket;
+  ticket.size_type = SIZE_TYPE_SMALL;
+
+  GetResult ret = locker_robot_manager->GetBag(ticket);
+
+  EXPECT_EQ(OPERATE_RESULT_ILLEGAL_TICKET, ret.operate_result);
+  EXPECT_EQ(0, ret.bag.id);
+}

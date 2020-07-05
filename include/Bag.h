@@ -11,8 +11,8 @@ class Bag {
 public:
   Bag(int id, SIZE_TYPE_E sizeType);
   Bag() = default;
-  int id;
-  SIZE_TYPE_E size_type;
+  int id = 0; // id is 0, mean bag is not exist
+  SIZE_TYPE_E size_type = LOCKER_TYPE_SMALL;
 };
 
 #endif // NEWLOCKER_BAG_H

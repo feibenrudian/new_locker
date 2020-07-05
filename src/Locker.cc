@@ -26,6 +26,12 @@ SaveResult Locker::Save(Bag bag) {
 }
 GetResult Locker::GetBag(Ticket ticket) {
   GetResult ret;
+
+  if (save_bags.end() == save_bags.find(ticket.id)) {
+    ret.operate_result = OPERATE_RESULT_ILLEGAL_TICKET;
+    return ret;
+  }
+
   ret.bag = save_bags[ticket.id];
   ret.operate_result = OPERATE_RESULT_SUCCESS;
   return ret;

@@ -28,6 +28,10 @@ SaveResult LockerRobotManager::SaveBag(Bag bag) {
     return primary_locker_robots_[0]->SaveBag(bag);
   }
 
+  if (SIZE_TYPE_LARGE == bag.size_type) {
+    return super_locker_robots_[0]->SaveBag(bag);
+  }
+
   ret.operate_result = OPERATE_RESULT_ILLEGAL_TICKET;
 
   return ret;

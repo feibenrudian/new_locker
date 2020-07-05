@@ -329,3 +329,14 @@ TEST_F(
   EXPECT_EQ(OPERATE_RESULT_SUCCESS, ret.operate_result);
   EXPECT_NE(0, ret.ticket.id);
 }
+
+TEST_F(
+    locker_robot_manage_test,
+    SHOULD_save_success_and_return_a_ticker_GIVEN_a_super_locker_robot_manage_a_small_locker_a_primary_locker_robot_a_super_locker_robot_and_a_big_bag_when_locker_robot_manage_save_bag) {
+
+  Bag bag(666, SIZE_TYPE_LARGE);
+  SaveResult ret = locker_robot_manager->SaveBag(bag);
+
+  EXPECT_EQ(OPERATE_RESULT_SUCCESS, ret.operate_result);
+  EXPECT_NE(0, ret.ticket.id);
+}

@@ -88,6 +88,8 @@ TEST(
 
   EXPECT_EQ(OPERATE_RESULT_SUCCESS, ret.operate_result);
   EXPECT_NE(0, ret.ticket.id);
+  bool exist = locker1->HasBag(bag.id, bag.size_type);
+  EXPECT_EQ(true, exist);
 
   delete locker1;
   delete locker2;

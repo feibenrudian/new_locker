@@ -39,6 +39,7 @@ public:
   SaveResult Save(Bag bag);
   GetResult GetBag(Ticket ticket);
   bool IsFull() const;
+  bool HasBag(int bag_id, SIZE_TYPE_E size_type);
 
 private:
   int amount;

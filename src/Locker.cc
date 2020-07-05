@@ -44,3 +44,16 @@ GetResult Locker::GetBag(Ticket ticket) {
   return ret;
 }
 bool Locker::IsFull() const { return remain <= 0; }
+
+bool Locker::HasBag(int bag_id, SIZE_TYPE_E bag_size_type) {
+  if (bag_size_type != size_type) {
+    return false;
+  }
+
+  for (auto &one_bag : save_bags) {
+    one_bag.second.id = bag_id;
+    return true;
+  }
+
+  return false;
+}

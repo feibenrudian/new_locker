@@ -14,3 +14,17 @@ TEST(
   EXPECT_EQ(OPERATE_RESULT_SUCCESS, ret.operate_result);
   EXPECT_NE(0, ret.ticket.id);
 }
+
+TEST(
+    locker,
+    should_get_success_and_correct_bag_given_rigint_ticket_and_a_small_locker_saved_a_small_bag_when_get_bag_from_locker) {
+  Locker locker(10, LOCKER_TYPE_SMALL);
+  Bag bag(666, LOCKER_TYPE_SMALL);
+  auto save_ret = locker.Save(bag);
+
+  auto ret = locker.GetBag(save_ret.ticket);
+
+  EXPECT_EQ(OPERATE_RESULT_SUCCESS, ret.operate_result);
+  EXPECT_EQ(666, ret.bag.id);
+  EXPECT_EQ(LOCKER_TYPE_SMALL, ret.bag.size_type);
+}

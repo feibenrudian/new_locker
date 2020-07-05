@@ -10,10 +10,9 @@ enum SIZE_TYPE_E { LOCKER_TYPE_SMALL, LOCKER_TYPE_MEDIUM, LOCKER_TYPE_LARGE };
 class Bag {
 public:
   Bag(int id, SIZE_TYPE_E sizeType);
-
-private:
+  Bag() = default;
   int id;
-  SIZE_TYPE_E size_type_;
+  SIZE_TYPE_E size_type;
 };
 
 #endif // NEWLOCKER_BAG_H

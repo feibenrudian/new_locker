@@ -5,6 +5,7 @@
 #ifndef NEWLOCKER_LOCKER_H
 #define NEWLOCKER_LOCKER_H
 #include "Bag.h"
+#include <map>
 
 enum OPERATE_RESULT_E { OPERATE_RESULT_SUCCESS };
 
@@ -12,6 +13,12 @@ struct Ticket {
   unsigned int id = 0;
   Ticket() = default;
   explicit Ticket(unsigned int id) : id(id) {}
+};
+
+struct GetResult {
+  OPERATE_RESULT_E operate_result = OPERATE_RESULT_SUCCESS;
+  Bag bag;
+  GetResult() = default;
 };
 
 struct SaveResult {
@@ -24,11 +31,13 @@ class Locker {
 public:
   Locker(int amount, SIZE_TYPE_E sizeType);
   SaveResult Save(Bag bag);
+  GetResult GetBag(Ticket ticket);
 
 private:
   int amount;
   int remain;
-  SIZE_TYPE_E size_type_;
+  SIZE_TYPE_E size_type;
+  std::map<unsigned int, Bag> save_bags;
 };
 
 #endif // NEWLOCKER_LOCKER_H

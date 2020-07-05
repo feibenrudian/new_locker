@@ -495,3 +495,14 @@ TEST_F(
   EXPECT_EQ(OPERATE_RESULT_ROBOT_CAN_NOT_WORK, ret.operate_result);
   EXPECT_EQ(0, ret.ticket.id);
 }
+
+TEST_F(
+    locker_robot_manage_type_error_test,
+    SHOULD_get_robot_can_not_work_error_GIVEN_a_locker_robot_manager_a_medium_locker_a_primary_locker_robot_manager_a_large_locker_a_super_locker_robot_manage_a_small_loker_and_a_large_bag_WHEN_save_bag_to_locker_robot_manage) {
+
+  Bag bag(666, SIZE_TYPE_LARGE);
+  SaveResult ret = locker_robot_manager->SaveBag(bag);
+
+  EXPECT_EQ(OPERATE_RESULT_ROBOT_CAN_NOT_WORK, ret.operate_result);
+  EXPECT_EQ(0, ret.ticket.id);
+}

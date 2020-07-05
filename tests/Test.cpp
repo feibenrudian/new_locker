@@ -59,3 +59,18 @@ TEST(
   EXPECT_EQ(OPERATE_RESULT_ILLEGAL_TICKET, ret.operate_result);
   EXPECT_EQ(0, ret.bag.id);
 }
+
+TEST(
+    locker,
+    should_return_ticket_type_error_given_medduim_ticket_and_a_small_locker_saved_a_small_bag_when_get_bag_from_locker) {
+  Locker locker(10, LOCKER_TYPE_SMALL);
+  Bag bag(666, LOCKER_TYPE_SMALL);
+  (void)locker.Save(bag);
+
+  Ticket illegal_ticket;
+  illegal_ticket.size_type = LOCKER_TYPE_MEDIUM;
+  auto ret = locker.GetBag(illegal_ticket);
+
+  EXPECT_EQ(OPERATE_RESULT_TICKET_TYPE_NOT_MATCH, ret.operate_result);
+  EXPECT_EQ(0, ret.bag.id);
+}

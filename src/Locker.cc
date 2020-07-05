@@ -40,6 +40,7 @@ GetResult Locker::GetBag(Ticket ticket) {
   }
 
   ret.bag = save_bags[ticket.id];
+  ++remain;
   save_bags.erase(ticket.id);
   ret.operate_result = OPERATE_RESULT_SUCCESS;
   return ret;

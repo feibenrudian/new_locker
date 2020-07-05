@@ -31,3 +31,21 @@ SaveResult SuperLockerRobot::SaveBag(Bag bag) {
 
   return ret;
 }
+GetResult SuperLockerRobot::GetBag(Ticket ticket) {
+  GetResult ret;
+
+  for (auto one_locker : lockers) {
+    auto get_from_one_ret = one_locker->GetBag(ticket);
+
+    if (OPERATE_RESULT_SUCCESS == get_from_one_ret.operate_result) {
+      return get_from_one_ret;
+    }
+
+    if (OPERATE_RESULT_ILLEGAL_TICKET == get_from_one_ret.operate_result) {
+      continue;
+    }
+  }
+
+  ret.operate_result = OPERATE_RESULT_ILLEGAL_TICKET;
+  return ret;
+}

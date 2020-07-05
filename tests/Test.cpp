@@ -179,6 +179,9 @@ TEST(
 
   EXPECT_EQ(OPERATE_RESULT_ROBOT_CAN_NOT_WORK, ret.operate_result);
   EXPECT_EQ(0, ret.ticket.id);
+
+  delete locker1;
+  delete primary_locker_robot;
 }
 
 class super_locker_robot_test : public testing::Test {
@@ -263,4 +266,16 @@ TEST_F(
 
   EXPECT_EQ(OPERATE_RESULT_TICKET_TYPE_NOT_MATCH, ret.operate_result);
   EXPECT_EQ(0, ret.bag.id);
+}
+
+TEST(
+    super_locker_robot,
+    SHOULD_get_robot_can_not_work_error_GIVEN_super_locker_robot_manager_a_small_locker_a_bag_when_super_locker_robot_save_bag) {
+  Bag bag1(666, LOCKER_TYPE_LARGE);
+  auto locker = new Locker(1, LOCKER_TYPE_SMALL);
+  auto super_locker_robot = new SuperLockerRobot({locker});
+  auto ret = super_locker_robot->SaveBag(bag1);
+
+  EXPECT_EQ(OPERATE_RESULT_ROBOT_CAN_NOT_WORK, ret.operate_result);
+  EXPECT_EQ(0, ret.ticket.id);
 }

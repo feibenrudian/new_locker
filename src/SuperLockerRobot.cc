@@ -6,14 +6,25 @@
 
 #include <utility>
 SuperLockerRobot::SuperLockerRobot(std::vector<Locker *> lockers)
-    : lockers(std::move(lockers)) {}
+    : lockers_(std::move(lockers)) {
+  for (auto one_locker : lockers_) {
+    if (LOCKER_TYPE_LARGE != one_locker->GetSizeType()) {
+      can_work_ = false;
+    }
+  }
+}
 
 SaveResult SuperLockerRobot::SaveBag(Bag bag) {
   SaveResult ret;
   int max_remain = 0;
   Locker *save_locker = nullptr;
 
-  for (auto one_locker : lockers) {
+  if (!can_work_) {
+    ret.operate_result = OPERATE_RESULT_ROBOT_CAN_NOT_WORK;
+    return ret;
+  }
+
+  for (auto one_locker : lockers_) {
     if (!one_locker->IsFull()) {
       auto remain = one_locker->GetRemain();
       if (remain > max_remain) {
@@ -39,7 +50,7 @@ GetResult SuperLockerRobot::GetBag(Ticket ticket) {
     return ret;
   }
 
-  for (auto one_locker : lockers) {
+  for (auto one_locker : lockers_) {
     auto get_from_one_ret = one_locker->GetBag(ticket);
 
     if (OPERATE_RESULT_SUCCESS == get_from_one_ret.operate_result) {

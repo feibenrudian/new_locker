@@ -14,7 +14,8 @@ public:
   GetResult GetBag(Ticket ticket);
 
 private:
-  std::vector<Locker *> lockers;
+  std::vector<Locker *> lockers_;
+  bool can_work_ = true;
 };
 
 #endif // NEWLOCKER_SUPERLOCKERROBOT_H

@@ -8,7 +8,7 @@
 SuperLockerRobot::SuperLockerRobot(std::vector<Locker *> lockers)
     : lockers_(std::move(lockers)) {
   for (auto one_locker : lockers_) {
-    if (LOCKER_TYPE_LARGE != one_locker->GetSizeType()) {
+    if (SIZE_TYPE_LARGE != one_locker->GetSizeType()) {
       can_work_ = false;
     }
   }
@@ -45,7 +45,7 @@ SaveResult SuperLockerRobot::SaveBag(Bag bag) {
 GetResult SuperLockerRobot::GetBag(Ticket ticket) {
   GetResult ret;
 
-  if (ticket.size_type != LOCKER_TYPE_LARGE) {
+  if (ticket.size_type != SIZE_TYPE_LARGE) {
     ret.operate_result = OPERATE_RESULT_TICKET_TYPE_NOT_MATCH;
     return ret;
   }

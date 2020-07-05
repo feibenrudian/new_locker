@@ -17,7 +17,7 @@ enum OPERATE_RESULT_E {
 
 struct Ticket {
   unsigned int id = 0; // id is 0 mean ticket is illegal
-  SIZE_TYPE_E size_type = LOCKER_TYPE_SMALL;
+  SIZE_TYPE_E size_type = SIZE_TYPE_SMALL;
   Ticket() = default;
   explicit Ticket(unsigned int id) : id(id) {}
 };

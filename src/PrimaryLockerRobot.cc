@@ -8,7 +8,7 @@
 PrimaryLockerRobot::PrimaryLockerRobot(std::vector<Locker *> lockers)
     : lockers_(std::move(lockers)) {
   for (auto one_locker : lockers_) {
-    if (one_locker->GetSizeType() != LOCKER_TYPE_MEDIUM) {
+    if (one_locker->GetSizeType() != SIZE_TYPE_MEDIUM) {
       can_work_ = false;
     }
   }
@@ -34,7 +34,7 @@ SaveResult PrimaryLockerRobot::SaveBag(Bag bag) {
 GetResult PrimaryLockerRobot::GetBag(Ticket ticket) {
   GetResult ret;
 
-  if (ticket.size_type != LOCKER_TYPE_MEDIUM) {
+  if (ticket.size_type != SIZE_TYPE_MEDIUM) {
     ret.operate_result = OPERATE_RESULT_TICKET_TYPE_NOT_MATCH;
     return ret;
   }

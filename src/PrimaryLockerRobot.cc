@@ -6,11 +6,22 @@
 
 #include <utility>
 PrimaryLockerRobot::PrimaryLockerRobot(std::vector<Locker *> lockers)
-    : lockers(std::move(lockers)) {}
+    : lockers_(std::move(lockers)) {
+  for (auto one_locker : lockers_) {
+    if (one_locker->getSizeType() != LOCKER_TYPE_MEDIUM) {
+      can_work_ = false;
+    }
+  }
+}
 SaveResult PrimaryLockerRobot::SaveBag(Bag bag) {
   SaveResult ret;
 
-  for (auto one_locker : lockers) {
+  if (!can_work_) {
+    ret.operate_result = OPERATE_RESULT_ROBOT_CAN_NOT_WORK;
+    return ret;
+  }
+
+  for (auto one_locker : lockers_) {
     if (!one_locker->IsFull()) {
       return one_locker->Save(bag);
     }
@@ -23,7 +34,12 @@ SaveResult PrimaryLockerRobot::SaveBag(Bag bag) {
 GetResult PrimaryLockerRobot::GetBag(Ticket ticket) {
   GetResult ret;
 
-  for (auto one_locker : lockers) {
+  if (ticket.size_type != LOCKER_TYPE_MEDIUM) {
+    ret.operate_result = OPERATE_RESULT_TICKET_TYPE_NOT_MATCH;
+    return ret;
+  }
+
+  for (auto one_locker : lockers_) {
     auto get_ret = one_locker->GetBag(ticket);
     if (OPERATE_RESULT_ILLEGAL_TICKET == get_ret.operate_result) {
       continue;

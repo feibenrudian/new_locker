@@ -97,7 +97,7 @@ protected:
 
 TEST_F(
     primary_locker_robot_test,
-    should_return_save_success_and_a_ticket_bag_save_in_first_locker_when_primary_locker_robot_manager_2_medium_not_full_locker_a_medium_bag_then_primary_locker_robot_manager_save_bag) {
+    should_return_save_success_and_a_ticket_bag_save_in_first_locker_given_primary_locker_robot_manager_2_medium_not_full_locker_a_medium_bag_when_primary_locker_robot_manager_save_bag) {
   Bag bag(666, LOCKER_TYPE_MEDIUM);
 
   auto ret = primary_locker_robot->SaveBag(bag);
@@ -110,7 +110,7 @@ TEST_F(
 
 TEST_F(
     primary_locker_robot_test,
-    should_return_save_success_and_a_ticket_bag_save_in_second_locker_when_primary_locker_robot_manager_1_full_medium_locker_1_not_full_medium_locker_a_medium_bag_then_primary_locker_robot_manager_save_bag) {
+    should_return_save_success_and_a_ticket_bag_save_in_second_locker_given_primary_locker_robot_manager_1_full_medium_locker_1_not_full_medium_locker_a_medium_bag_when_primary_locker_robot_manager_save_bag) {
 
   Bag bag1(666, LOCKER_TYPE_MEDIUM);
   Bag bag2(6666, LOCKER_TYPE_MEDIUM);
@@ -126,7 +126,7 @@ TEST_F(
 
 TEST_F(
     primary_locker_robot_test,
-    should_get_success_and_correct_bag_when_primary_locker_robot_manager_saved_a_bag_have_a_right_ticket_then_get_bag_from_locker_robot_manager) {
+    should_get_success_and_correct_bag_given_primary_locker_robot_manager_saved_a_bag_have_a_right_ticket_when_get_bag_from_locker_robot_manager) {
   Bag bag1(666, LOCKER_TYPE_MEDIUM);
 
   auto save_ret = primary_locker_robot->SaveBag(bag1);
@@ -138,14 +138,44 @@ TEST_F(
 
 TEST_F(
     primary_locker_robot_test,
-    should_get_illegal_ticket_error_when_primary_locker_robot_manager_saved_a_bag_have_a_illegal_ticket_then_get_bag_from_locker_robot_manager) {
+    should_get_illegal_ticket_error_given_primary_locker_robot_manager_saved_a_bag_have_a_illegal_ticket_when_get_bag_from_locker_robot_manager) {
   Bag bag1(666, LOCKER_TYPE_MEDIUM);
 
   auto save_ret = primary_locker_robot->SaveBag(bag1);
 
   Ticket illegal_ticket;
+  illegal_ticket.size_type = LOCKER_TYPE_MEDIUM;
   auto ret = primary_locker_robot->GetBag(illegal_ticket);
 
   EXPECT_EQ(OPERATE_RESULT_ILLEGAL_TICKET, ret.operate_result);
   EXPECT_EQ(0, ret.bag.id);
+}
+
+TEST_F(
+    primary_locker_robot_test,
+    SHOULD_get_type_not_match_error_GIVEN_primary_locker_robot_manager_saved_a_bag_have_a_small_type_ticket_WHEN_get_bag_from_locker_robot_manager) {
+  Bag bag1(666, LOCKER_TYPE_MEDIUM);
+
+  auto save_ret = primary_locker_robot->SaveBag(bag1);
+
+  Ticket illegal_ticket;
+  illegal_ticket.size_type = LOCKER_TYPE_SMALL;
+  auto ret = primary_locker_robot->GetBag(illegal_ticket);
+
+  EXPECT_EQ(OPERATE_RESULT_TICKET_TYPE_NOT_MATCH, ret.operate_result);
+  EXPECT_EQ(0, ret.bag.id);
+}
+
+TEST(
+    primary_locker_robot,
+    SHOULD_robot_can_not_work_error_GIVEN_primary_locker_robot_manager_manager_a_small_size_lock_and_a_bag_WHEN_save_bag) {
+  Bag bag1(666, LOCKER_TYPE_MEDIUM);
+
+  auto locker1 = new Locker(1, LOCKER_TYPE_SMALL);
+  auto primary_locker_robot = new PrimaryLockerRobot({locker1});
+
+  auto ret = primary_locker_robot->SaveBag(bag1);
+
+  EXPECT_EQ(OPERATE_RESULT_ROBOT_CAN_NOT_WORK, ret.operate_result);
+  EXPECT_EQ(0, ret.ticket.id);
 }

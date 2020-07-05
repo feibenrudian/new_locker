@@ -11,7 +11,8 @@ enum OPERATE_RESULT_E {
   OPERATE_RESULT_SUCCESS,
   OPERATE_RESULT_LOCKER_FULL,
   OPERATE_RESULT_ILLEGAL_TICKET,
-  OPERATE_RESULT_TICKET_TYPE_NOT_MATCH
+  OPERATE_RESULT_TICKET_TYPE_NOT_MATCH,
+  OPERATE_RESULT_ROBOT_CAN_NOT_WORK
 };
 
 struct Ticket {
@@ -40,6 +41,7 @@ public:
   GetResult GetBag(Ticket ticket);
   bool IsFull() const;
   bool HasBag(int bag_id, SIZE_TYPE_E size_type);
+  SIZE_TYPE_E getSizeType() const;
 
 private:
   int amount;

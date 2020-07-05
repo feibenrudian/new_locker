@@ -28,3 +28,20 @@ TEST(
   EXPECT_EQ(666, ret.bag.id);
   EXPECT_EQ(LOCKER_TYPE_SMALL, ret.bag.size_type);
 }
+
+TEST(
+    locker,
+    should_return_full_error_given_full_locker_a_small_bag_then_locker_save_bag) {
+  Locker locker(2, LOCKER_TYPE_SMALL);
+  Bag bag(666, LOCKER_TYPE_SMALL);
+
+  for (int i = 0; i < 2; ++i) {
+    Bag in_locker_bag(i, LOCKER_TYPE_SMALL);
+    (void)locker.Save(in_locker_bag);
+  }
+
+  auto ret = locker.Save(bag);
+
+  EXPECT_EQ(OPERATE_RESULT_LOCKER_FULL, ret.operate_result);
+  EXPECT_EQ(0, ret.ticket.id);
+}

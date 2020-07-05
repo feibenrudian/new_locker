@@ -9,11 +9,18 @@ Locker::Locker(int amount, SIZE_TYPE_E sizeType)
     : amount(amount), remain(amount), size_type(sizeType) {}
 SaveResult Locker::Save(Bag bag) {
   SaveResult result;
+
+  if (remain >= amount) {
+    result.operate_result = OPERATE_RESULT_LOCKER_FULL;
+    return result;
+  }
+
   result.operate_result = OPERATE_RESULT_SUCCESS;
   std::default_random_engine e;
   result.ticket = Ticket(e());
 
   save_bags[result.ticket.id] = bag;
+  --remain;
 
   return result;
 }

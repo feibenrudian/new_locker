@@ -7,10 +7,13 @@
 #include "Bag.h"
 #include <map>
 
-enum OPERATE_RESULT_E { OPERATE_RESULT_SUCCESS };
+enum OPERATE_RESULT_E {
+  OPERATE_RESULT_SUCCESS,
+  OPERATE_RESULT_LOCKER_FULL,
+};
 
 struct Ticket {
-  unsigned int id = 0;
+  unsigned int id = 0; // id is 0 mean ticket is illegal
   Ticket() = default;
   explicit Ticket(unsigned int id) : id(id) {}
 };

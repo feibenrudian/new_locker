@@ -19,3 +19,22 @@ SaveResult PrimaryLockerRobot::SaveBag(Bag bag) {
   ret.operate_result = OPERATE_RESULT_LOCKER_FULL;
   return ret;
 }
+
+GetResult PrimaryLockerRobot::GetBag(Ticket ticket) {
+  GetResult ret;
+
+  for (auto one_locker : lockers) {
+    auto get_ret = one_locker->GetBag(ticket);
+    if (OPERATE_RESULT_ILLEGAL_TICKET == get_ret.operate_result) {
+      continue;
+    } else {
+      if (OPERATE_RESULT_SUCCESS == get_ret.operate_result) {
+        return get_ret;
+      }
+    }
+  }
+
+  ret.operate_result = OPERATE_RESULT_ILLEGAL_TICKET;
+
+  return ret;
+}

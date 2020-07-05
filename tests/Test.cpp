@@ -123,3 +123,15 @@ TEST_F(
   bool exist = locker2->HasBag(bag2.id, bag2.size_type);
   EXPECT_EQ(true, exist);
 }
+
+TEST_F(
+    primary_locker_robot_test,
+    should_get_success_and_correct_bag_when_primary_locker_robot_manager_saved_a_bag_have_a_right_ticket_then_get_bag_from_locker_robot_manager) {
+  Bag bag1(666, LOCKER_TYPE_MEDIUM);
+
+  auto save_ret = primary_locker_robot->SaveBag(bag1);
+  auto ret = primary_locker_robot->GetBag(save_ret.ticket);
+
+  EXPECT_EQ(OPERATE_RESULT_SUCCESS, ret.operate_result);
+  EXPECT_EQ(666, ret.bag.id);
+}

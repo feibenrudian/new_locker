@@ -11,6 +11,7 @@ class PrimaryLockerRobot {
 public:
   PrimaryLockerRobot(std::vector<Locker *> lockers);
   SaveResult SaveBag(Bag bag);
+  GetResult GetBag(Ticket ticket);
 
 private:
   std::vector<Locker *> lockers;

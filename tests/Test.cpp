@@ -250,3 +250,17 @@ TEST_F(
   EXPECT_EQ(OPERATE_RESULT_ILLEGAL_TICKET, ret.operate_result);
   EXPECT_EQ(0, ret.bag.id);
 }
+
+TEST_F(
+    super_locker_robot_test,
+    SHOULD_get_ticket_type_not_match_error_GIVEN_super_locker_robot_manager_manager_save_a_bag_and_a_small_ticket_when_get_bag_from_super_locker_robot) {
+  Bag bag1(666, LOCKER_TYPE_LARGE);
+  (void)super_locker_robot->SaveBag(bag1);
+
+  Ticket ticket;
+  ticket.size_type = LOCKER_TYPE_SMALL;
+  auto ret = super_locker_robot->GetBag(ticket);
+
+  EXPECT_EQ(OPERATE_RESULT_TICKET_TYPE_NOT_MATCH, ret.operate_result);
+  EXPECT_EQ(0, ret.bag.id);
+}

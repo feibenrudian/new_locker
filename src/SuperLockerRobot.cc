@@ -34,6 +34,11 @@ SaveResult SuperLockerRobot::SaveBag(Bag bag) {
 GetResult SuperLockerRobot::GetBag(Ticket ticket) {
   GetResult ret;
 
+  if (ticket.size_type != LOCKER_TYPE_LARGE) {
+    ret.operate_result = OPERATE_RESULT_TICKET_TYPE_NOT_MATCH;
+    return ret;
+  }
+
   for (auto one_locker : lockers) {
     auto get_from_one_ret = one_locker->GetBag(ticket);
 

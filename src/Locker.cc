@@ -10,7 +10,7 @@ Locker::Locker(int amount, SIZE_TYPE_E sizeType)
 SaveResult Locker::Save(Bag bag) {
   SaveResult result;
 
-  if (remain >= amount) {
+  if (IsFull()) {
     result.operate_result = OPERATE_RESULT_LOCKER_FULL;
     return result;
   }
@@ -43,3 +43,4 @@ GetResult Locker::GetBag(Ticket ticket) {
   ret.operate_result = OPERATE_RESULT_SUCCESS;
   return ret;
 }
+bool Locker::IsFull() const { return remain <= 0; }

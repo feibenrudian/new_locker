@@ -13,7 +13,7 @@ A practice for TDD
 **Given** 小型locker正确存入一个小型包，一张中型包的票 **When** locker 取包  **Then** 返回票类型不匹配
 ***  
 ### Tasking - PrimaryLockerRobot
-**Given** PrimaryLockerRobot保管两个中型locker，有个中型包  **When** PrimaryLockerRobot 存包  **Then** 存包成功，返回票据，包在第一个locker中
+**Given** PrimaryLockerRobot保管两个中型locker，一个中型包  **When** PrimaryLockerRobot 存包  **Then** 存包成功，返回票据，包在第一个locker中
 
 **Given** PrimaryLockerRobot保管两个中型locker，第一个locker满，有个中型包  **When** PrimaryLockerRobot 存包  **Then** 存包成功，返回票据，包在第二个locker中
 

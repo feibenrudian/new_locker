@@ -38,6 +38,7 @@ public:
   Locker(int amount, SIZE_TYPE_E sizeType);
   SaveResult Save(Bag bag);
   GetResult GetBag(Ticket ticket);
+  bool IsFull() const;
 
 private:
   int amount;

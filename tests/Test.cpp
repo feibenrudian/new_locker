@@ -1,4 +1,5 @@
 #include "../include/Locker.h"
+#include "../include/PrimaryLockerRobot.h"
 #include <gtest/gtest.h>
 
 using namespace std;
@@ -73,4 +74,21 @@ TEST(
 
   EXPECT_EQ(OPERATE_RESULT_TICKET_TYPE_NOT_MATCH, ret.operate_result);
   EXPECT_EQ(0, ret.bag.id);
+}
+
+TEST(
+    primary_locker_robot,
+    should_return_save_success_and_a_ticket_bag_save_in_first_locker_when_primary_locker_robot_manager_2_medium_locker_a_medium_bag_then_primary_locker_robot_manager_save_bag) {
+  Locker *locker1 = new Locker(10, LOCKER_TYPE_MEDIUM);
+  Locker *locker2 = new Locker(10, LOCKER_TYPE_MEDIUM);
+  Bag bag(666, LOCKER_TYPE_MEDIUM);
+  PrimaryLockerRobot primary_locker_robot({locker1, locker2});
+
+  auto ret = primary_locker_robot.SaveBag(bag);
+
+  EXPECT_EQ(OPERATE_RESULT_SUCCESS, ret.operate_result);
+  EXPECT_NE(0, ret.ticket.id);
+
+  delete locker1;
+  delete locker2;
 }

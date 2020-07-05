@@ -76,42 +76,50 @@ TEST(
   EXPECT_EQ(0, ret.bag.id);
 }
 
-TEST(
-    primary_locker_robot,
-    should_return_save_success_and_a_ticket_bag_save_in_first_locker_when_primary_locker_robot_manager_2_medium_not_full_locker_a_medium_bag_then_primary_locker_robot_manager_save_bag) {
-  Locker *locker1 = new Locker(10, LOCKER_TYPE_MEDIUM);
-  Locker *locker2 = new Locker(10, LOCKER_TYPE_MEDIUM);
-  Bag bag(666, LOCKER_TYPE_MEDIUM);
-  PrimaryLockerRobot primary_locker_robot({locker1, locker2});
+class primary_locker_robot_test : public testing::Test {
+protected:
+  void SetUp() override {
+    locker1 = new Locker(1, LOCKER_TYPE_MEDIUM);
+    locker2 = new Locker(10, LOCKER_TYPE_MEDIUM);
+    primary_locker_robot = new PrimaryLockerRobot({locker1, locker2});
+  }
 
-  auto ret = primary_locker_robot.SaveBag(bag);
+  void TearDown() override {
+    delete locker1;
+    delete locker2;
+    delete primary_locker_robot;
+  }
+
+  Locker *locker1;
+  Locker *locker2;
+  PrimaryLockerRobot *primary_locker_robot;
+};
+
+TEST_F(
+    primary_locker_robot_test,
+    should_return_save_success_and_a_ticket_bag_save_in_first_locker_when_primary_locker_robot_manager_2_medium_not_full_locker_a_medium_bag_then_primary_locker_robot_manager_save_bag) {
+  Bag bag(666, LOCKER_TYPE_MEDIUM);
+
+  auto ret = primary_locker_robot->SaveBag(bag);
 
   EXPECT_EQ(OPERATE_RESULT_SUCCESS, ret.operate_result);
   EXPECT_NE(0, ret.ticket.id);
   bool exist = locker1->HasBag(bag.id, bag.size_type);
   EXPECT_EQ(true, exist);
-
-  delete locker1;
-  delete locker2;
 }
 
-TEST(
-    primary_locker_robot,
+TEST_F(
+    primary_locker_robot_test,
     should_return_save_success_and_a_ticket_bag_save_in_second_locker_when_primary_locker_robot_manager_1_full_medium_locker_1_not_full_medium_locker_a_medium_bag_then_primary_locker_robot_manager_save_bag) {
-  Locker *locker1 = new Locker(1, LOCKER_TYPE_MEDIUM);
-  Locker *locker2 = new Locker(10, LOCKER_TYPE_MEDIUM);
+
   Bag bag1(666, LOCKER_TYPE_MEDIUM);
   Bag bag2(6666, LOCKER_TYPE_MEDIUM);
-  PrimaryLockerRobot primary_locker_robot({locker1, locker2});
-  (void)primary_locker_robot.SaveBag(bag1);
+  (void)primary_locker_robot->SaveBag(bag1);
 
-  auto ret = primary_locker_robot.SaveBag(bag2);
+  auto ret = primary_locker_robot->SaveBag(bag2);
 
   EXPECT_EQ(OPERATE_RESULT_SUCCESS, ret.operate_result);
   EXPECT_NE(0, ret.ticket.id);
   bool exist = locker2->HasBag(bag2.id, bag2.size_type);
   EXPECT_EQ(true, exist);
-
-  delete locker1;
-  delete locker2;
 }

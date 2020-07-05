@@ -69,6 +69,12 @@ LockerRobotManager已存入一个包，一张伪造的票 **When** LockerRobotMa
 **Given** SuperLockerRobot保管1个大型locker，PrimaryLockerRobot保管1个中型locker, 一个LockerRobotManager管理前面描述的两个robot和一个小型locker， 
 LockerRobotManager已存入一个大型包，一张小型包的票 **When** LockerRobotManager取包 **Then** 返回票无效错误
 
+**Given** SuperLockerRobot保管1个中型locker，PrimaryLockerRobot保管1个型locker, 一个LockerRobotManager管理前面描述的两个robot和一个小型locker， 
+一个小型包 **When** LockerRobotManager存包  **Then** 存包失败，返回机器人不能工作
+
 **Given** SuperLockerRobot保管1个中型locker，PrimaryLockerRobot保管1个小型locker, 一个LockerRobotManager管理前面描述的两个robot和一个小型locker， 
-一个大型包 **When** LockerRobotManager存小型包  **Then** 存包失败，返回机器人故障
+一个中型包 **When** LockerRobotManager存包  **Then** 存包失败，返回机器人不能工作
+
+**Given** SuperLockerRobot保管1个中型locker，PrimaryLockerRobot保管1个小型locker, 一个LockerRobotManager管理前面描述的两个robot和一个小型locker， 
+一个大型包 **When** LockerRobotManager存包  **Then** 存包失败，返回机器人不能工作
 *** 

@@ -21,6 +21,7 @@ private:
   std::vector<Locker *> lockers_;
   std::vector<PrimaryLockerRobot *> primary_locker_robots_;
   std::vector<SuperLockerRobot *> super_locker_robots_;
+  bool can_work_ = true;
 };
 
 #endif // NEWLOCKER_LOCKERROBOTMANAGER_H

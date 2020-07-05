@@ -281,7 +281,7 @@ TEST(
   EXPECT_EQ(0, ret.ticket.id);
 }
 
-class locker_robot_manage_test : public testing::Test {
+class locker_robot_manager_test : public testing::Test {
 protected:
   void SetUp() override {
     locker1 = new Locker(3, SIZE_TYPE_SMALL);
@@ -298,6 +298,7 @@ protected:
     delete locker2;
     delete locker3;
     delete super_locker_robot;
+    delete primary_locker_robot;
     delete locker_robot_manager;
   }
 
@@ -310,8 +311,8 @@ protected:
 };
 
 TEST_F(
-    locker_robot_manage_test,
-    SHOULD_save_success_and_return_a_ticker_GIVEN_a_super_locker_robot_manage_a_small_locker_a_primary_locker_robot_a_super_locker_robot_and_a_small_bag_when_locker_robot_manage_save_bag) {
+    locker_robot_manager_test,
+    SHOULD_save_success_and_return_a_ticker_GIVEN_a_locker_robot_manager_manage_a_small_locker_a_primary_locker_robot_a_super_locker_robot_and_a_small_bag_when_locker_robot_manage_save_bag) {
   Bag bag(666, SIZE_TYPE_SMALL);
   SaveResult ret = locker_robot_manager->SaveBag(bag);
 
@@ -320,8 +321,8 @@ TEST_F(
 }
 
 TEST_F(
-    locker_robot_manage_test,
-    SHOULD_save_success_and_return_a_ticker_GIVEN_a_super_locker_robot_manage_a_small_locker_a_primary_locker_robot_a_super_locker_robot_and_a_medium_bag_when_locker_robot_manage_save_bag) {
+    locker_robot_manager_test,
+    SHOULD_save_success_and_return_a_ticker_GIVEN_a_locker_robot_manager_manage_a_small_locker_a_primary_locker_robot_a_super_locker_robot_and_a_medium_bag_when_locker_robot_manage_save_bag) {
 
   Bag bag(666, SIZE_TYPE_MEDIUM);
   SaveResult ret = locker_robot_manager->SaveBag(bag);
@@ -331,8 +332,8 @@ TEST_F(
 }
 
 TEST_F(
-    locker_robot_manage_test,
-    SHOULD_save_success_and_return_a_ticker_GIVEN_a_super_locker_robot_manage_a_small_locker_a_primary_locker_robot_a_super_locker_robot_and_a_big_bag_when_locker_robot_manage_save_bag) {
+    locker_robot_manager_test,
+    SHOULD_save_success_and_return_a_ticker_GIVEN_a_locker_robot_manager_manage_a_small_locker_a_primary_locker_robot_a_super_locker_robot_and_a_big_bag_when_locker_robot_manage_save_bag) {
 
   Bag bag(666, SIZE_TYPE_LARGE);
   SaveResult ret = locker_robot_manager->SaveBag(bag);
@@ -342,8 +343,8 @@ TEST_F(
 }
 
 TEST_F(
-    locker_robot_manage_test,
-    SHOULD_get_success_get_a_bag_GIVEN_a_super_robot_manager_save_a_small_bag_and_a_right_ticket_when_get_bag_from_locker_robot_manage) {
+    locker_robot_manager_test,
+    SHOULD_get_success_get_a_bag_GIVEN_a_locker_robot_manager_save_a_small_bag_and_a_right_ticket_when_get_bag_from_locker_robot_manage) {
 
   Bag bag(666, SIZE_TYPE_SMALL);
   SaveResult save_ret = locker_robot_manager->SaveBag(bag);
@@ -355,8 +356,8 @@ TEST_F(
 }
 
 TEST_F(
-    locker_robot_manage_test,
-    SHOULD_get_success_get_a_bag_GIVEN_a_super_robot_manager_save_a_medium_bag_and_a_right_ticket_when_get_bag_from_locker_robot_manage) {
+    locker_robot_manager_test,
+    SHOULD_get_success_get_a_bag_GIVEN_a_locker_robot_manager_save_a_medium_bag_and_a_right_ticket_when_get_bag_from_locker_robot_manage) {
 
   Bag bag(666, SIZE_TYPE_MEDIUM);
   SaveResult save_ret = locker_robot_manager->SaveBag(bag);
@@ -368,8 +369,8 @@ TEST_F(
 }
 
 TEST_F(
-    locker_robot_manage_test,
-    SHOULD_get_success_get_a_bag_GIVEN_a_super_robot_manager_save_a_large_bag_and_a_right_ticket_when_get_bag_from_locker_robot_manage) {
+    locker_robot_manager_test,
+    SHOULD_get_success_get_a_bag_GIVEN_a_locker_robot_manager_save_a_large_bag_and_a_right_ticket_when_get_bag_from_locker_robot_manage) {
 
   Bag bag(666, SIZE_TYPE_LARGE);
   SaveResult save_ret = locker_robot_manager->SaveBag(bag);
@@ -381,8 +382,8 @@ TEST_F(
 }
 
 TEST_F(
-    locker_robot_manage_test,
-    SHOULD_get_illegal_ticket_error_GIVEN_a_super_robot_manager_save_a_small_bag_and_a_illagal_ticket_when_get_bag_from_locker_robot_manage) {
+    locker_robot_manager_test,
+    SHOULD_get_illegal_ticket_error_GIVEN_a_locker_robot_manager_save_a_small_bag_and_a_illagal_ticket_when_get_bag_from_locker_robot_manage) {
 
   Bag bag(666, SIZE_TYPE_SMALL);
   (void)locker_robot_manager->SaveBag(bag);
@@ -397,8 +398,8 @@ TEST_F(
 }
 
 TEST_F(
-    locker_robot_manage_test,
-    SHOULD_get_illegal_ticket_error_GIVEN_a_super_robot_manager_save_a_medium_bag_and_a_illagal_ticket_when_get_bag_from_locker_robot_manage) {
+    locker_robot_manager_test,
+    SHOULD_get_illegal_ticket_error_GIVEN_a_locker_robot_manager_save_a_medium_bag_and_a_illagal_ticket_when_get_bag_from_locker_robot_manage) {
 
   Bag bag(666, SIZE_TYPE_MEDIUM);
   (void)locker_robot_manager->SaveBag(bag);
@@ -413,8 +414,8 @@ TEST_F(
 }
 
 TEST_F(
-    locker_robot_manage_test,
-    SHOULD_get_illegal_ticket_error_GIVEN_a_super_robot_manager_save_a_large_bag_and_a_illagal_ticket_when_get_bag_from_locker_robot_manage) {
+    locker_robot_manager_test,
+    SHOULD_get_illegal_ticket_error_GIVEN_a_locker_robot_manager_save_a_large_bag_and_a_illagal_ticket_when_get_bag_from_locker_robot_manage) {
 
   Bag bag(666, SIZE_TYPE_LARGE);
   (void)locker_robot_manager->SaveBag(bag);
@@ -429,8 +430,8 @@ TEST_F(
 }
 
 TEST_F(
-    locker_robot_manage_test,
-    SHOULD_get_illegal_ticket_error_GIVEN_a_super_robot_manager_save_a_large_bag_and_a_small_ticket_when_get_bag_from_locker_robot_manage) {
+    locker_robot_manager_test,
+    SHOULD_get_illegal_ticket_error_GIVEN_a_locker_robot_manager_save_a_large_bag_and_a_small_ticket_when_get_bag_from_locker_robot_manage) {
 
   Bag bag(666, SIZE_TYPE_LARGE);
   (void)locker_robot_manager->SaveBag(bag);
@@ -442,4 +443,44 @@ TEST_F(
 
   EXPECT_EQ(OPERATE_RESULT_ILLEGAL_TICKET, ret.operate_result);
   EXPECT_EQ(0, ret.bag.id);
+}
+
+class locker_robot_manage_type_error_test : public testing::Test {
+protected:
+  void SetUp() override {
+    locker1 = new Locker(3, SIZE_TYPE_MEDIUM);
+    locker2 = new Locker(3, SIZE_TYPE_SMALL);
+    locker3 = new Locker(3, SIZE_TYPE_MEDIUM);
+    primary_locker_robot = new PrimaryLockerRobot({locker2});
+    super_locker_robot = new SuperLockerRobot({locker3});
+    locker_robot_manager = new LockerRobotManager{
+        {locker1}, {primary_locker_robot}, {super_locker_robot}};
+  }
+
+  void TearDown() override {
+    delete locker1;
+    delete locker2;
+    delete locker3;
+    delete super_locker_robot;
+    delete primary_locker_robot;
+    delete locker_robot_manager;
+  }
+
+  Locker *locker1{};
+  Locker *locker2{};
+  Locker *locker3{};
+  SuperLockerRobot *super_locker_robot{};
+  PrimaryLockerRobot *primary_locker_robot{};
+  LockerRobotManager *locker_robot_manager{};
+};
+
+TEST_F(
+    locker_robot_manage_type_error_test,
+    SHOULD_get_robot_can_not_work_error_GIVEN_a_locker_robot_manager_a_medium_locker_a_primary_locker_robot_manager_a_large_locker_a_super_locker_robot_manage_a_small_loker_and_a_small_bag_WHEN_save_bag_to_locker_robot_manage) {
+
+  Bag bag(666, SIZE_TYPE_SMALL);
+  SaveResult ret = locker_robot_manager->SaveBag(bag);
+
+  EXPECT_EQ(OPERATE_RESULT_ROBOT_CAN_NOT_WORK, ret.operate_result);
+  EXPECT_EQ(0, ret.ticket.id);
 }

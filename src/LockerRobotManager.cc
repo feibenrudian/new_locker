@@ -11,10 +11,21 @@ LockerRobotManager::LockerRobotManager(
     std::vector<SuperLockerRobot *> superLockerRobots)
     : lockers_(std::move(lockers)),
       primary_locker_robots_(std::move(primaryLockerRobots)),
-      super_locker_robots_(std::move(superLockerRobots)) {}
+      super_locker_robots_(std::move(superLockerRobots)) {
+  for (auto one_locker : lockers_) {
+    if (SIZE_TYPE_SMALL != one_locker->GetSizeType()) {
+      can_work_ = false;
+    }
+  }
+}
 
 SaveResult LockerRobotManager::SaveBag(Bag bag) {
   SaveResult ret;
+
+  if (!can_work_) {
+    ret.operate_result = OPERATE_RESULT_ROBOT_CAN_NOT_WORK;
+    return ret;
+  }
 
   if (SIZE_TYPE_SMALL == bag.size_type) {
     for (auto one_locker : lockers_) {

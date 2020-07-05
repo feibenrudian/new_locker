@@ -8,7 +8,7 @@
 PrimaryLockerRobot::PrimaryLockerRobot(std::vector<Locker *> lockers)
     : lockers_(std::move(lockers)) {
   for (auto one_locker : lockers_) {
-    if (one_locker->getSizeType() != LOCKER_TYPE_MEDIUM) {
+    if (one_locker->GetSizeType() != LOCKER_TYPE_MEDIUM) {
       can_work_ = false;
     }
   }

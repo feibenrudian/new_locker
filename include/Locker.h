@@ -41,7 +41,8 @@ public:
   GetResult GetBag(Ticket ticket);
   bool IsFull() const;
   bool HasBag(int bag_id, SIZE_TYPE_E size_type);
-  SIZE_TYPE_E getSizeType() const;
+  SIZE_TYPE_E GetSizeType() const;
+  int GetRemain() const;
 
 private:
   int amount;

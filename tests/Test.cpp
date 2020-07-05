@@ -199,3 +199,26 @@ TEST(
   delete locker2;
   delete super_locker_robot;
 }
+
+TEST(
+    super_locker_robot_test,
+    SHOULD_save_success_return_a_ticket_and_bag_save_in_second_locker_GIVEN_super_locker_robot_manager_manager_2_large_size_lock_first_remain_2_second_remain_2_and_a_large_bag_WHEN_save_bag) {
+  Bag bag1(666, LOCKER_TYPE_LARGE);
+  Bag bag2(6666, LOCKER_TYPE_LARGE);
+
+  auto locker1 = new Locker(3, LOCKER_TYPE_LARGE);
+  auto locker2 = new Locker(3, LOCKER_TYPE_LARGE);
+  auto super_locker_robot = new SuperLockerRobot({locker1, locker2});
+
+  (void)super_locker_robot->SaveBag(bag1);
+  auto ret = super_locker_robot->SaveBag(bag2);
+
+  EXPECT_EQ(OPERATE_RESULT_SUCCESS, ret.operate_result);
+  EXPECT_NE(0, ret.ticket.id);
+  auto exist = locker2->HasBag(bag2.id, bag2.size_type);
+  EXPECT_EQ(true, exist);
+
+  delete locker1;
+  delete locker2;
+  delete super_locker_robot;
+}

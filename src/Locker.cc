@@ -58,4 +58,5 @@ bool Locker::HasBag(int bag_id, SIZE_TYPE_E bag_size_type) {
 
   return false;
 }
-SIZE_TYPE_E Locker::getSizeType() const { return size_type; }
+SIZE_TYPE_E Locker::GetSizeType() const { return size_type; }
+int Locker::GetRemain() const { return remain; }

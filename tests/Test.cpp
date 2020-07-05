@@ -135,3 +135,17 @@ TEST_F(
   EXPECT_EQ(OPERATE_RESULT_SUCCESS, ret.operate_result);
   EXPECT_EQ(666, ret.bag.id);
 }
+
+TEST_F(
+    primary_locker_robot_test,
+    should_get_illegal_ticket_error_when_primary_locker_robot_manager_saved_a_bag_have_a_illegal_ticket_then_get_bag_from_locker_robot_manager) {
+  Bag bag1(666, LOCKER_TYPE_MEDIUM);
+
+  auto save_ret = primary_locker_robot->SaveBag(bag1);
+
+  Ticket illegal_ticket;
+  auto ret = primary_locker_robot->GetBag(illegal_ticket);
+
+  EXPECT_EQ(OPERATE_RESULT_ILLEGAL_TICKET, ret.operate_result);
+  EXPECT_EQ(0, ret.bag.id);
+}

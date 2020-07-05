@@ -340,3 +340,42 @@ TEST_F(
   EXPECT_EQ(OPERATE_RESULT_SUCCESS, ret.operate_result);
   EXPECT_NE(0, ret.ticket.id);
 }
+
+TEST_F(
+    locker_robot_manage_test,
+    SHOULD_get_success_get_a_bag_GIVEN_a_super_robot_manager_save_a_small_bag_and_a_right_ticket_when_get_bag_from_locker_robot_manage) {
+
+  Bag bag(666, SIZE_TYPE_SMALL);
+  SaveResult save_ret = locker_robot_manager->SaveBag(bag);
+
+  GetResult ret = locker_robot_manager->GetBag(save_ret.ticket);
+
+  EXPECT_EQ(OPERATE_RESULT_SUCCESS, ret.operate_result);
+  EXPECT_EQ(666, ret.bag.id);
+}
+
+TEST_F(
+    locker_robot_manage_test,
+    SHOULD_get_success_get_a_bag_GIVEN_a_super_robot_manager_save_a_medium_bag_and_a_right_ticket_when_get_bag_from_locker_robot_manage) {
+
+  Bag bag(666, SIZE_TYPE_MEDIUM);
+  SaveResult save_ret = locker_robot_manager->SaveBag(bag);
+
+  GetResult ret = locker_robot_manager->GetBag(save_ret.ticket);
+
+  EXPECT_EQ(OPERATE_RESULT_SUCCESS, ret.operate_result);
+  EXPECT_EQ(666, ret.bag.id);
+}
+
+TEST_F(
+    locker_robot_manage_test,
+    SHOULD_get_success_get_a_bag_GIVEN_a_super_robot_manager_save_a_large_bag_and_a_right_ticket_when_get_bag_from_locker_robot_manage) {
+
+  Bag bag(666, SIZE_TYPE_LARGE);
+  SaveResult save_ret = locker_robot_manager->SaveBag(bag);
+
+  GetResult ret = locker_robot_manager->GetBag(save_ret.ticket);
+
+  EXPECT_EQ(OPERATE_RESULT_SUCCESS, ret.operate_result);
+  EXPECT_EQ(666, ret.bag.id);
+}

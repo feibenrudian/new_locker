@@ -15,6 +15,7 @@ public:
                      std::vector<SuperLockerRobot *> superLockerRobots);
 
   SaveResult SaveBag(Bag bag);
+  GetResult GetBag(Ticket ticket);
 
 private:
   std::vector<Locker *> lockers_;

@@ -49,7 +49,13 @@ A practice for TDD
 一个大型包 **When** LockerRobotManager存大型包  **Then** 存包成功，返回票据， 中型包存入大型locker中
 
 **Given** SuperLockerRobot保管1个大型locker，PrimaryLockerRobot保管1个中型locker, 一个LockerRobotManager管理前面描述的两个robot和一个小型locker， 
-LockerRobotManager已存入一个包，一张票正确的票 **When** LockerRobotManager取包 **Then** 取包成功，返回正确的包 
+LockerRobotManager已存入一个小型包，一张票正确的票 **When** LockerRobotManager取包 **Then** 取包成功，返回正确的包 
+
+**Given** SuperLockerRobot保管1个大型locker，PrimaryLockerRobot保管1个中型locker, 一个LockerRobotManager管理前面描述的两个robot和一个小型locker， 
+LockerRobotManager已存入一个中型包，一张票正确的票 **When** LockerRobotManager取包 **Then** 取包成功，返回正确的包 
+
+**Given** SuperLockerRobot保管1个大型locker，PrimaryLockerRobot保管1个中型locker, 一个LockerRobotManager管理前面描述的两个robot和一个小型locker， 
+LockerRobotManager已存入一个大型包，一张票正确的票 **When** LockerRobotManager取包 **Then** 取包成功，返回正确的包 
 
 **Given** SuperLockerRobot保管1个大型locker，PrimaryLockerRobot保管1个中型locker, 一个LockerRobotManager管理前面描述的两个robot和一个小型locker， 
 LockerRobotManager已存入一个包，一张伪造的票 **When** LockerRobotManager取包 **Then** 返回票无效错误
